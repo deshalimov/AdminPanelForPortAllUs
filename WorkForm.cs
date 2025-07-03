@@ -139,12 +139,13 @@ namespace WindowsFormsApp2
                 TerminalTimeslotVehicleId.Text != ""
                 && terminalWeightUnloadedNetto.Text != ""
                 && terminalWeightUnloadedBrutto.Text != ""
-                && terminalHadLeftDateTime.Text != ""
+                //&& terminalHadLeftDateTime.Text != ""
                 && TerminalTimeslotVehicleId.Text.Length >= 8
                 )
             {
                 // обновить токен
                 (int code, string resp) resp_refresh_token = urlQueries.RefreshToken(dBHelper.Get_refresh_token_from_db());
+                
 
                 // если токен обновлен успешно
                 if (resp_refresh_token.code == 200)
@@ -161,9 +162,41 @@ namespace WindowsFormsApp2
                     dBHelper.Set_refresh_token_from_db(access_token, refresh_token);
 
                     // отправить запрос в ЭО
-                    (int code, string resp) resp_req_eq = urlQueries.SendQuerry(access_token, dateTimeUTC);
+                    (int code, string resp) resp_req_eq = urlQueries.SendQuerry(access_token, dateTimeUTC, TerminalTimeslotVehicleId.Text, Double.Parse(terminalWeightUnloadedNetto.Text), Double.Parse(terminalWeightUnloadedBrutto.Text));
+                    if (resp_req_eq.code == 200)
+                    {
+                        MessageBox.Show(
+                            "Запрос выполнен успешно. Данные по номеру назначению " + TerminalTimeslotVehicleId.Text + " переданы.",
+                            "Сообщение",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                        sendRequest.Enabled = true;
+                        //use wait cursor
+                        //Form1.ActiveForm.UseWaitCursor = false;
+                    }
+                    else
+                    {
+                        string error_desc;
+                        try
+                        {
+                            error_desc = JsonDocument.Parse(resp_req_eq.resp).RootElement.GetProperty("ValidationErrors")[0].GetProperty("Error").GetString();
+                        }
+                        catch
+                        {
+                            error_desc = resp_req_eq.resp;
+                        }
+                        MessageBox.Show(
+                            error_desc,
+                            "Ошибка: " + resp_req_eq.code,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        sendRequest.Enabled = true;
+                        Console.WriteLine(error_desc);
+                        // use wait cursor
+                        //Form1.ActiveForm.UseWaitCursor = false;
+                    }
 
-                    
+
                 }
                 else
                 {

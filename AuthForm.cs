@@ -43,18 +43,40 @@ namespace WindowsFormsApp2
                     string access_token = jsonDocAuth.GetProperty("access_token").GetString();
                     string refresh_token = jsonDocAuth.GetProperty("refresh_token").GetString();
 
-                    
+
                     // получить данные профиля пользователя
                     (int code, string resp) resp_me = urlQueries.GetMe(access_token);
                     if (resp_me.code == 200)
                     {
                         var jsonDocMe = JsonDocument.Parse(resp_me.resp).RootElement;
                         string type = jsonDocMe.GetProperty("type").GetString();
-                        if (type == "dispatcher")
+
+                        if (type == "dispatcher" || type == "terminal_agent")
                         {
-                            // получить ФИО и наименование ДТ
-                            string contactFullName = jsonDocMe.GetProperty("firstName").GetString() + " " + jsonDocMe.GetProperty("lastName").GetString();
-                            string profileDetails = jsonDocMe.GetProperty("terminalAgent").GetProperty("profileDetails").GetProperty("organizationName").GetString();
+                            // получить ФИО и наименование АТ/ДТ
+                            string contactFullName;
+                            string profileDetails;
+                            try
+                            {
+
+                                if (type == "dispatcher")
+                                {
+                                    contactFullName = jsonDocMe.GetProperty("firstName").GetString() + " " + jsonDocMe.GetProperty("lastName").GetString();
+                                    profileDetails = jsonDocMe.GetProperty("terminalAgent").GetProperty("profileDetails").GetProperty("organizationName").GetString();
+
+                                }
+                                else
+                                {
+                                    contactFullName = jsonDocMe.GetProperty("contactFullName").GetString();
+                                    profileDetails = jsonDocMe.GetProperty("profileDetails").GetProperty("organizationName").GetString();
+
+                                }
+                            }
+                            catch
+                            {
+                                contactFullName = "";
+                                profileDetails = "";
+                            }
 
                             // Сохранить данные в БД
                             dBHelper.Set_auth_data_in_database(contactFullName, profileDetails, access_token, refresh_token);
@@ -67,7 +89,7 @@ namespace WindowsFormsApp2
                         {
                             labelIfroreq.Text = "Для данного типа пользователя авторизация недоступна";
                         }
-                        //textBox1.Text = type;
+                        
                     }
                     else
                     {
@@ -93,7 +115,5 @@ namespace WindowsFormsApp2
                 }
             }
         }
-
-        
     }
 }

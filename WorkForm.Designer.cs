@@ -46,6 +46,7 @@
             this.terminalWeightUnloadedBrutto = new System.Windows.Forms.TextBox();
             this.errorlable = new System.Windows.Forms.Label();
             this.sendRequest = new System.Windows.Forms.Button();
+            this.textBoxLog = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -59,7 +60,7 @@
             this.labelUnlogin.Location = new System.Drawing.Point(694, 33);
             this.labelUnlogin.Name = "labelUnlogin";
             this.labelUnlogin.Size = new System.Drawing.Size(128, 16);
-            this.labelUnlogin.TabIndex = 1;
+            this.labelUnlogin.TabIndex = 5;
             this.labelUnlogin.Text = "Выйти из профиля";
             this.labelUnlogin.Click += new System.EventHandler(this.labelUnlogin_Click);
             this.labelUnlogin.MouseLeave += new System.EventHandler(this.mouseLeaveUnloginLable);
@@ -89,7 +90,7 @@
             this.clearAll.Location = new System.Drawing.Point(30, 313);
             this.clearAll.Name = "clearAll";
             this.clearAll.Size = new System.Drawing.Size(162, 29);
-            this.clearAll.TabIndex = 0;
+            this.clearAll.TabIndex = 4;
             this.clearAll.Text = "Очистить форму";
             this.clearAll.UseVisualStyleBackColor = false;
             this.clearAll.Click += new System.EventHandler(this.clearAll_Click);
@@ -237,12 +238,21 @@
             this.sendRequest.UseVisualStyleBackColor = true;
             this.sendRequest.Click += new System.EventHandler(this.sendRequest_Click);
             // 
+            // textBoxLog
+            // 
+            this.textBoxLog.Location = new System.Drawing.Point(354, 319);
+            this.textBoxLog.Name = "textBoxLog";
+            this.textBoxLog.Size = new System.Drawing.Size(100, 22);
+            this.textBoxLog.TabIndex = 6;
+            this.textBoxLog.Visible = false;
+            // 
             // WorkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(860, 379);
             this.ControlBox = false;
+            this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.sendRequest);
             this.Controls.Add(this.errorlable);
             this.Controls.Add(this.groupBox4);
@@ -288,5 +298,6 @@
         private System.Windows.Forms.Label terminalWeightUnloadedBruttoError;
         private System.Windows.Forms.Label errorlable;
         private System.Windows.Forms.Button sendRequest;
+        private System.Windows.Forms.TextBox textBoxLog;
     }
 }

@@ -47,6 +47,7 @@
             this.textBoxLogin.Name = "textBoxLogin";
             this.textBoxLogin.Size = new System.Drawing.Size(346, 22);
             this.textBoxLogin.TabIndex = 1;
+            this.textBoxLogin.Text = "Test.port@bk.ru";
             // 
             // groupBoxLogin
             // 
@@ -98,13 +99,14 @@
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(346, 22);
             this.textBoxPassword.TabIndex = 2;
+            this.textBoxPassword.Text = "124578A!";
             // 
             // buttonLogin
             // 
             this.buttonLogin.Location = new System.Drawing.Point(95, 275);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(130, 35);
-            this.buttonLogin.TabIndex = 1;
+            this.buttonLogin.TabIndex = 3;
             this.buttonLogin.Text = "Авторизация";
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
@@ -124,8 +126,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(233, 240);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Visible = false;
+            this.textBox1.TabIndex = 4;
             // 
             // AuthForm
             // 

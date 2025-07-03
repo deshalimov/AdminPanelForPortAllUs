@@ -9,20 +9,20 @@ namespace WindowsFormsApp2
         // внести данные в БД
         public void Set_auth_data_in_database(string contacr_fullname, string profileDetails, string access_token, string refresh_token)
         {
-            SqlDataReader reader = SendRequest($"UPDATE Table1 SET username = N'{contacr_fullname}', organization_name = N'{profileDetails}', access_token = '{access_token}', refresh_token = '{refresh_token}' WHERE Id = 1");
+            SqlDataReader reader = SendRequest($"UPDATE DataTable SET username = N'{contacr_fullname}', organization_name = N'{profileDetails}', access_token = '{access_token}', refresh_token = '{refresh_token}' WHERE Id = 1");
             reader.Close();
         }
 
         // очистить данные в БД
         public void Clear_data_in_db()
         {
-            SqlDataReader reader = SendRequest("UPDATE Table1 SET username = NULL, organization_name = NULL, access_token = NULL, refresh_token = NULL WHERE Id = 1");
+            SqlDataReader reader = SendRequest("UPDATE DataTable SET username = NULL, organization_name = NULL, access_token = NULL, refresh_token = NULL WHERE Id = 1");
             reader.Close();
         }
 
         public (string, string) Get_fullname_and_orgname_from_db()
         {
-            using (SqlDataReader reader = SendRequest("SELECT username, organization_name FROM Table1 WHERE Id = 1"))
+            using (SqlDataReader reader = SendRequest("SELECT username, organization_name FROM DataTable WHERE Id = 1"))
             {
                 if (reader.Read())
                 {
@@ -38,7 +38,7 @@ namespace WindowsFormsApp2
         // авторизован ли пользователь
         public bool Is_user_auth()
         {
-            using (SqlDataReader reader = SendRequest("SELECT * FROM Table1 WHERE id = 1 AND refresh_token IS NOT NULL"))
+            using (SqlDataReader reader = SendRequest("SELECT * FROM DataTable WHERE id = 1 AND refresh_token IS NOT NULL"))
             {
                 // Проверяем, наличие записей в таблице
                 if (reader.HasRows)
@@ -57,7 +57,7 @@ namespace WindowsFormsApp2
         // получить список данных из БД
         public string Get_data_from_db()
         {
-            using (SqlDataReader reader = SendRequest("SELECT * FROM Table1 WHERE Id = 1"))
+            using (SqlDataReader reader = SendRequest("SELECT * FROM DataTable WHERE Id = 1"))
             {
                 string allData = "";
 
@@ -77,7 +77,7 @@ namespace WindowsFormsApp2
         // получить refresh_token
         public string Get_refresh_token_from_db()
         {
-            using (SqlDataReader reader = SendRequest("SELECT refresh_token FROM Table1 WHERE Id = 1"))
+            using (SqlDataReader reader = SendRequest("SELECT refresh_token FROM DataTable WHERE Id = 1"))
             {
                 if (reader.Read()) // Проверяем, есть ли строки в результате
                 {
@@ -92,7 +92,7 @@ namespace WindowsFormsApp2
 
         public void Set_refresh_token_from_db(string access_token, string refresh_token)
         {
-            using (SqlDataReader reader = SendRequest($"UPDATE Table1 SET access_token = '{access_token}', refresh_token = '{refresh_token}' WHERE Id = 1"))
+            using (SqlDataReader reader = SendRequest($"UPDATE DataTable SET access_token = '{access_token}', refresh_token = '{refresh_token}' WHERE Id = 1"))
             {
                 if (reader.Read())
                 {

@@ -20,7 +20,7 @@ namespace WindowsFormsApp2
         public (int, string) RefreshToken(string refresh_token)
         {
             //ендпоинт
-            string address = "https:///jwt-auth/connect/token";
+            string address = "https://smartseeds.ru/jwt-auth/connect/token";
 
             Dictionary<string, string> Params = new Dictionary<string, string>()
             {
@@ -39,7 +39,7 @@ namespace WindowsFormsApp2
         public (int, string) AuthGetAccessToken(string login, string password)
         {
             //ендпоинт
-            string address = "https:///jwt-auth/connect/token";
+            string address = "https://smartseeds.ru/jwt-auth/connect/token";
 
             Dictionary<string, string> Params = new Dictionary<string, string>()
             {
@@ -58,7 +58,7 @@ namespace WindowsFormsApp2
 
         public (int, string) GetMe(string access_token)
         {
-            string url = "https:///api/native/v2.0/users/me";
+            string url = "https://smartseeds.ru/api/native/v2.0/users/me";
 
             // создать клиент запроса
             HttpClient client = new HttpClient();
@@ -74,17 +74,17 @@ namespace WindowsFormsApp2
         }
 
         // Отправить запрос в ЭО
-        public (int, string) SendQuerry(string access_token, string dateTimeUTC)
+        public (int, string) SendQuerry(string access_token, string dateTimeUTC, string idtimeslot, double netto, double brutto)
         {
             //errorlable.Text = "Выполняется отправка запроса";
 
-            string url = "https://api./api/terminal/v1/Export/ParameterInfo";
+            string url = "https://api.smartseeds.ru/api/terminal/v1/Export/ParameterInfo";
 
             var Params = new
             {
-                TerminalTimeslotVehicleId = 31421423, //TerminalTimeslotVehicleId.Text,
-                terminalWeightUnloadedNetto = 21.3, // Double.Parse(terminalWeightUnloadedNetto.Text),
-                terminalWeightUnloadedBrutto = 12.3, // Double.Parse(terminalWeightUnloadedBrutto.Text),
+                TerminalTimeslotVehicleId = idtimeslot, //TerminalTimeslotVehicleId.Text,
+                terminalWeightUnloadedNetto = netto, // Double.Parse(terminalWeightUnloadedNetto.Text),
+                terminalWeightUnloadedBrutto = brutto, // Double.Parse(terminalWeightUnloadedBrutto.Text),
                 terminalHadLeftDateTime = dateTimeUTC
             };
 
